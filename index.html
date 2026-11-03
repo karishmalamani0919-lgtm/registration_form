@@ -4,104 +4,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Registration</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Student Registration Form</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            margin: 0;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #673ab7;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px;
+            margin-top: 7px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #673ab7;
+        }
+
+        .usn-box {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            margin-top: 7px;
+        }
+
+        .usn-prefix {
+            background: #eee;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .usn-box input {
+            margin-top: 0;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .hint {
+            color: #666;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 25px;
+            background: #673ab7;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #512da8;
+        }
+
+        #result {
+            display: none;
+            margin-top: 25px;
+            padding: 20px;
+            background: #e8f5e9;
+            border: 1px solid #4caf50;
+            border-radius: 8px;
+        }
+
+        #result h2 {
+            color: green;
+            text-align: center;
+        }
+
+        #details {
+            white-space: pre-line;
+            overflow-wrap: anywhere;
+            line-height: 1.7;
+        }
+    </style>
 </head>
+
 <body>
 
 <div class="container">
 
-    <h1>🎓 Student Registration</h1>
+    <h1>Student Registration Form</h1>
 
-    <p class="subtitle">
-        Begin your journey towards a brighter future!
-        Fill in your details below.
-    </p>
-
-    <form id="registrationForm">
+    <form id="registrationForm" novalidate>
 
         <label for="name">Full Name</label>
-        <input type="text" id="name" placeholder="Enter your full name" required>
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+            required
+            oninput="this.value=this.value.replace(/[^A-Za-z]/g,'')"
+        >
+
+        <label>USN</label>
+        <div class="usn-box">
+            <span class="usn-prefix">2KE24CS</span>
+            <input
+                type="text"
+                id="usnNumber"
+                placeholder="123"
+                maxlength="3"
+                inputmode="numeric"
+                required
+                oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+            >
+        </div>
+        <div class="hint">Enter exactly 3 digits after 2KE24CS.</div>
 
         <label for="email">Email Address</label>
-        <input type="email" id="email" placeholder="Enter your email" required>
+        <input
+            type="text"
+            id="email"
+            placeholder="example@gmail.com"
+            required
+        >
+        <div id="emailError" class="error"></div>
 
         <label for="phone">Phone Number</label>
-        <input type="tel" id="phone"
-               placeholder="Enter your phone number"
-               pattern="[0-9]{10}" maxlength="10" required>
+        <input
+            type="tel"
+            id="phone"
+            placeholder="Enter 10-digit phone number"
+            maxlength="10"
+            inputmode="numeric"
+            required
+            oninput="this.value=this.value.replace(/[^0-9]/g,'')"
+        >
 
         <label for="dob">Date of Birth</label>
         <input type="date" id="dob" required>
+        <div class="hint">You must be at least 18 years old to register.</div>
+        <div id="dobError" class="error"></div>
 
         <label for="gender">Gender</label>
         <select id="gender" required>
-            <option value="">Select your gender</option>
+            <option value="">Select Gender</option>
             <option>Female</option>
             <option>Male</option>
             <option>Other</option>
         </select>
 
-        <label for="course">Choose Course</label>
+        <label for="course">Course</label>
         <select id="course" required>
-            <option value="">Select your course</option>
-            <option>Computer Science</option>
-            <option>Information Science</option>
-            <option>Electronics</option>
-            <option>Mechanical</option>
-            <option>Civil</option>
+            <option value="">Select Course</option>
+            <option>B.E. Computer Science</option>
+            <option>B.E. Information Science</option>
+            <option>B.E. Electronics</option>
+            <option>B.E. Mechanical</option>
+            <option>B.E. Civil</option>
             <option>Other</option>
         </select>
 
         <label for="address">Address</label>
-        <textarea id="address"
-                  placeholder="Enter your address" required></textarea>
+        <textarea
+            id="address"
+            rows="4"
+            placeholder="Enter your address"
+            required
+        ></textarea>
 
-        <button type="submit">Submit Registration ✨</button>
+        <button type="submit">Register</button>
 
     </form>
 
-    <div class="result" id="result" hidden>
-        <h2>Registration Successful! 🎉</h2>
+    <div id="result">
+        <h2>Registration Successful!</h2>
         <div id="details"></div>
     </div>
 
 </div>
 
-<script src="script.js"></script>
-
 <script>
-document.getElementById("registrationForm").addEventListener("submit", function(event) {
-    event.preventDefault();
 
-    const fields = [
-        ["Full Name", "name"],
-        ["Email", "email"],
-        ["Phone", "phone"],
-        ["Date of Birth", "dob"],
-        ["Gender", "gender"],
-        ["Course", "course"],
-        ["Address", "address"]
-    ];
+    const form = document.getElementById("registrationForm");
+    const dob = document.getElementById("dob");
+    const dobError = document.getElementById("dobError");
+    const email = document.getElementById("email");
+    const emailError = document.getElementById("emailError");
+    const result = document.getElementById("result");
 
-    const details = document.getElementById("details");
-    details.replaceChildren();
+    // Calculate the latest allowed date of birth.
+    function getMinimumAgeDate() {
 
-    fields.forEach(function(field) {
-        const p = document.createElement("p");
-        const label = document.createElement("strong");
+        const today = new Date();
 
-        label.textContent = field[0] + ": ";
-        p.appendChild(label);
-        p.appendChild(document.createTextNode(
-            document.getElementById(field[1]).value
-        ));
+        const cutoff = new Date(
+            today.getFullYear() - 18,
+            today.getMonth(),
+            today.getDate()
+        );
 
-        details.appendChild(p);
+        const year = cutoff.getFullYear();
+        const month = String(cutoff.getMonth() + 1).padStart(2, "0");
+        const day = String(cutoff.getDate()).padStart(2, "0");
+
+        return `${year}-${month}-${day}`;
+    }
+
+    // Set the maximum selectable date.
+    dob.max = getMinimumAgeDate();
+
+    // Calculate actual age using the selected date.
+    function calculateAge(dateOfBirth) {
+
+        const parts = dateOfBirth.split("-").map(Number);
+
+        const birthYear = parts[0];
+        const birthMonth = parts[1];
+        const birthDay = parts[2];
+
+        const today = new Date();
+
+        let age = today.getFullYear() - birthYear;
+
+        if (
+            today.getMonth() + 1 < birthMonth ||
+            (
+                today.getMonth() + 1 === birthMonth &&
+                today.getDate() < birthDay
+            )
+        ) {
+            age--;
+        }
+
+        return age;
+    }
+
+    // Validate email.
+    function validateEmail() {
+
+        const emailPattern =
+            /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+        if (!emailPattern.test(email.value.trim())) {
+
+            emailError.textContent =
+                "Invalid Email Entered! Please enter a valid email address.";
+
+            return false;
+        }
+
+        emailError.textContent = "";
+        return true;
+    }
+
+    email.addEventListener("input", validateEmail);
+
+    // Validate date of birth.
+    function validateDOB() {
+
+        if (!dob.value) {
+
+            dobError.textContent =
+                "Please select your date of birth.";
+
+            return false;
+        }
+
+        const age = calculateAge(dob.value);
+
+        if (age < 18) {
+
+            dobError.textContent =
+                "You cannot register! You must be at least 18 years old.";
+
+            return false;
+        }
+
+        dobError.textContent = "";
+        return true;
+    }
+
+    dob.addEventListener("change", validateDOB);
+
+    // Hide previous result when form details are changed.
+    form.addEventListener("input", function() {
+        result.style.display = "none";
     });
 
-    document.getElementById("result").hidden = false;
-});
+    form.addEventListener("change", function() {
+        result.style.display = "none";
+    });
+
+    // Submit registration form.
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        result.style.display = "none";
+
+        const name = document.getElementById("name").value.trim();
+        const usnNumber = document.getElementById("usnNumber").value;
+        const phone = document.getElementById("phone").value;
+        const gender = document.getElementById("gender").value;
+        const course = document.getElementById("course").value;
+        const address = document.getElementById("address").value.trim();
+
+        // Name validation.
+        if (!/^[A-Za-z]+$/.test(name)) {
+            alert("Please enter a valid name using English letters only.");
+            document.getElementById("name").focus();
+            return;
+        }
+
+        // USN validation.
+        if (!/^[0-9]{3}$/.test(usnNumber)) {
+            alert("Please enter exactly 3 digits for your USN.");
+            document.getElementById("usnNumber").focus();
+            return;
+        }
+
+        // Email validation.
+        if (!validateEmail()) {
+            alert("Invalid Email Entered! Please enter a valid email address.");
+            email.focus();
+            return;
+        }
+
+        // Phone validation.
+        if (!/^[0-9]{10}$/.test(phone)) {
+            alert("Please enter a valid 10-digit phone number.");
+            document.getElementById("phone").focus();
+            return;
+        }
+
+        // Date of birth validation.
+        if (!dob.value) {
+            validateDOB();
+            dob.focus();
+            return;
+        }
+
+        if (!validateDOB()) {
+            alert("You cannot register! You must be at least 18 years old.");
+            dob.focus();
+            return;
+        }
+
+        // Other required fields.
+        if (!gender || !course || !address) {
+            alert("Please fill in all the required fields.");
+            return;
+        }
+
+        // Registration is successful only after all validations pass.
+        const fullUSN = "2KE24CS" + usnNumber;
+
+        const details =
+            "Full Name: " + name + "\n" +
+            "USN: " + fullUSN + "\n" +
+            "Email: " + email.value.trim() + "\n" +
+            "Phone Number: " + phone + "\n" +
+            "Date of Birth: " + dob.value + "\n" +
+            "Gender: " + gender + "\n" +
+            "Course: " + course + "\n" +
+            "Address: " + address;
+
+        document.getElementById("details").textContent = details;
+
+        result.style.display = "block";
+
+        result.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    });
+
 </script>
 
 </body>
