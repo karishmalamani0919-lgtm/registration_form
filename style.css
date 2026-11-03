@@ -1,0 +1,124 @@
+
+/* General page styling */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 15px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #e6d5ff, #d9e8ff, #fce1f2);
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Main registration card */
+.container {
+    max-width: 650px;
+    margin: 20px auto;
+    padding: 35px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 35px rgba(80, 50, 120, 0.15);
+}
+
+/* Heading */
+h1, h2 {
+    text-align: center;
+    color: #7041a6;
+}
+
+h1 {
+    margin-bottom: 8px;
+    font-size: 30px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #888;
+    margin-bottom: 30px;
+}
+
+/* Form labels */
+label {
+    display: block;
+    margin: 15px 0 7px;
+    font-weight: 600;
+    color: #514166;
+}
+
+/* Input fields */
+input, select, textarea {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ddd0ef;
+    border-radius: 10px;
+    outline: none;
+    font-size: 15px;
+    background: #faf8ff;
+    transition: 0.3s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: #8957c5;
+    box-shadow: 0 0 7px rgba(137, 87, 197, 0.2);
+    background: white;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 90px;
+}
+
+/* Submit button */
+button {
+    width: 100%;
+    margin-top: 25px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #8052bd, #a46bd2);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(90deg, #63399d, #8952bd);
+    transform: translateY(-2px);
+}
+
+/* Submitted details */
+.result {
+    margin-top: 30px;
+    padding: 22px;
+    background: #f7f1ff;
+    border-left: 5px solid #8957c5;
+    border-radius: 12px;
+}
+
+.result h2 {
+    margin-top: 0;
+}
+
+.result p {
+    padding: 7px 0;
+    border-bottom: 1px solid #e7dcf3;
+    overflow-wrap: anywhere;
+}
+
+/* Mobile screen */
+@media (max-width: 600px) {
+    .container {
+        padding: 22px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+}
